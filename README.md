@@ -71,7 +71,7 @@ erDiagram
 - **`dim_movies`** — dimensão de filmes: um registro por filme, com título, gêneros (separados por `|`) e ano de lançamento.
 - **`fact_ratings`** — fato de avaliações com granularidade de **uma avaliação por usuário, filme e momento**. A coluna `src` indica a tabela raw de origem da avaliação.
 
-Na passagem da camada raw para a analítica, as colunas `STRING` são convertidas para os tipos corretos (`INT64`, `FLOAT64`, `TIMESTAMP`).
+Na passagem da camada raw para a analítica, as colunas `STRING` são convertidas para os tipos corretos (`INT64`, `FLOAT64`, `TIMESTAMP`) com `SAFE_CAST`, e o ano de lançamento é extraído do título via regex — veja [`load_dim_movies.sql`](sql/02_analytical/load_dim_movies.sql).
 
 > Os DDLs completos estão em [`sql/02_analytical`](sql/02_analytical).
 
@@ -100,7 +100,7 @@ Dashboard construído no Metabase consumindo as views acima:
 movielens-ratings-gcp/
 ├── sql/
 │   ├── 01_raw/          # DDL das tabelas raw (netflix_raw)
-│   ├── 02_analytical/   # DDL do modelo dimensional (netflix_analytical)
+│   ├── 02_analytical/   # DDL e cargas (load_*.sql) do modelo dimensional (netflix_analytical)
 │   └── 03_views/        # Views analíticas
 ├── scripts/
 │   ├── extract_ddl.sql  # Consulta ao INFORMATION_SCHEMA
