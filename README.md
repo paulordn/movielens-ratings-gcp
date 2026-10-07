@@ -28,7 +28,16 @@ flowchart LR
 | Raw (tabelas) | BigQuery · `netflix_raw` | Tabelas **externas** lendo os CSVs direto do bucket (todas as colunas como `STRING`) |
 | Analítica | BigQuery · `netflix_analytical` | Modelo dimensional (`dim_movies`, `fact_ratings`) |
 | Consumo | BigQuery · views `vw_*` | Métricas e agregações para o dashboard |
-| Visualização | Metabase | Dashboard conectado ao BigQuery |
+| Visualização | Metabase | Dashboard conectado ao BigQuery via conta de serviço |
+
+### 🔐 Acesso do Metabase ao BigQuery
+
+O Metabase se conecta ao BigQuery por uma **conta de serviço** do GCP, sem usar credenciais pessoais. Para seguir o princípio do menor privilégio, a conta precisa apenas de:
+
+- `BigQuery Data Viewer` (`roles/bigquery.dataViewer`), para ler tabelas e views;
+- `BigQuery Job User` (`roles/bigquery.jobUser`), para executar consultas.
+
+> A chave JSON da conta de serviço **não é versionada**: arquivos `*.json` e `.env` estão no `.gitignore`.
 
 ## 📦 Fonte dos dados
 
