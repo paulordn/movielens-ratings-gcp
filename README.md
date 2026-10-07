@@ -73,6 +73,8 @@ erDiagram
 
 Na passagem da camada raw para a analítica, as colunas `STRING` são convertidas para os tipos corretos (`INT64`, `FLOAT64`, `TIMESTAMP`) com `SAFE_CAST`, e o ano de lançamento é extraído do título via regex — veja [`load_dim_movies.sql`](sql/02_analytical/load_dim_movies.sql).
 
+A [`load_fact_ratings.sql`](sql/02_analytical/load_fact_ratings.sql) une `raw_user_rating_history` e `raw_ratings_for_additional_users` com `UNION ALL`, trata valores vazios e `NA`, aceita timestamps com ou sem fuso horário e descarta linhas incompletas.
+
 > Os DDLs completos estão em [`sql/02_analytical`](sql/02_analytical).
 
 ## 📊 Views analíticas
