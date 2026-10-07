@@ -94,7 +94,18 @@ A [`load_fact_ratings.sql`](sql/02_analytical/load_fact_ratings.sql) une `raw_us
 
 Dashboard construído no Metabase consumindo as views acima:
 
-![Dashboard no Metabase](images/dashboard.png)
+![Dashboard no Metabase — filmes mais avaliados, atividade dos usuários e heatmap](images/dashboard.png)
+
+![Dashboard no Metabase — gêneros, popularidade x qualidade e top 10](images/dashboard_2.png)
+
+| Painel | View |
+|---|---|
+| Filmes mais avaliados | `vw_movies_kpis` |
+| Atividade dos usuários | `vw_user_activity` |
+| HeatMap Ratings (ano × mês) | `vw_ratings_heatmap` |
+| Popularidade de gênero · Popularidade x qualidade (gênero) | `vw_genre_performance` |
+| Popularidade x qualidade (filmes) | `vw_scatter_popularity_vs_quality` |
+| Top 10 filmes | `vw_top_movies` |
 
 ## 📁 Estrutura do repositório
 
@@ -108,7 +119,8 @@ movielens-ratings-gcp/
 │   ├── extract_ddl.sql  # Consulta ao INFORMATION_SCHEMA
 │   └── split_ddl.py     # Gera um .sql por objeto a partir do export
 ├── images/
-│   └── dashboard.png
+│   ├── dashboard.png
+│   └── dashboard_2.png
 └── README.md
 ```
 
