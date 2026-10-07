@@ -1,0 +1,22 @@
+CREATE VIEW `seu-projeto-gcp.netflix_analytical.vw_genre_performance`
+AS WITH exploded as(
+
+  SELECT 
+    r.rating,
+    genre
+    FROM `seu-projeto-gcp.netflix_analytical.fact_ratings` r
+    JOIN `seu-projeto-gcp.netflix_analytical.dim_movies` m
+      ON m.movie_id = r.movie_id
+    CROSS JOIN UNNEST(SPLIT(COALESCE(m.genres, ''), '|')) as genre
+)
+SELECT
+  genre,
+  COUNT(*) AS total_ratings,
+  AVG(rating) as avg_rating,
+  STDDEV(rating) as std_rating
+FROM exploded
+WHERE genre IS NOT NULL
+  AND genre != ''
+  AND genre != '(no genres listed)'
+GROUP BY 1 
+ORDER BY total_ratings DESC, avg_rating DESC;
