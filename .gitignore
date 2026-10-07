@@ -1,0 +1,20 @@
+# Dados brutos (não redistribuir o dataset MovieLens)
+*.csv
+*.zip
+
+# Credenciais e configs locais (inclui chaves de service account do GCP)
+*.json
+.env
+.env.*
+
+# Python
+__pycache__/
+.venv/
+venv/
+
+# Sistema / IDE
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
